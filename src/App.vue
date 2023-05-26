@@ -59,7 +59,7 @@ const livrosFiltrados = computed(() => {
       (categorias.value.fantasia && livro.class === "fantasia") ||
       (categorias.value.violencia && livro.class === "violencia") ||
       (categorias.value.infantojuvenil && livro.class === "infantojuvenil") ||
-      (categorias.value.medieval && livro.class === "medieval")
+      (categorias.value.medieval && livro.class === "medieval") 
     ) {
       return true;
     }
@@ -67,9 +67,33 @@ const livrosFiltrados = computed(() => {
   });
 });
 
-const aplicarFiltro = () => {
-  mostrarFiltros.value = false;
-}
+const exibirPopup = ref(false);
+
+const respostaPopup = ref(null);
+
+const comprarLivro = () => {
+  exibirPopup.value = true;
+};
+
+const finalizarCompra = () => {
+  if (email.value && senha.value && metodoPagamento.value) {
+    exibirPopup.value = false;
+  }
+};
+
+const responderPopup = (resposta) => {
+  respostaPopup.value = resposta;
+  setTimeout(() => {
+    exibirPopup.value = false;
+    respostaPopup.value = null;
+  }, 100);
+};
+
+const email = ref('');
+const senha = ref('');
+const metodoPagamento = ref('');
+
+
 
 </script>
 
@@ -139,7 +163,31 @@ const aplicarFiltro = () => {
           </div>
         </div>
         <p>Total: {{ formatarPreco(carrinho.total) }}</p>
+        <button @click="comprarLivro">Comprar</button>
       </div>
+      <div v-if="exibirPopup" class="popup-container">
+    <div class="popup">
+  <h3>Finalizar Compra</h3>
+  <form>
+    <label for="email">Email:</label>
+    <input type="email" v-model="email" required>
+
+    <label for="senha">Senha:</label>
+    <input type="password" v-model="senha" required>
+
+    <label for="metodoPagamento">Método de Pagamento:</label>
+    <select v-model="metodoPagamento" required>
+      <option value="" disabled>Selecione o método de pagamento</option>
+      <option value="debito">Débito</option>
+      <option value="credito">Crédito</option>
+      <option value="pix">Pix</option>
+    </select>
+  </form>
+  <button @click="finalizarCompra" :disabled="!email || !senha || !metodoPagamento">
+  Finalizar Compra
+</button>
+</div>
+</div>
     </div>
   </main>
 </template>
@@ -319,4 +367,60 @@ button {
     grid-template-columns:1fr;
   }
 }
+
+.popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 9999;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup h3 {
+  margin-top: 0;
+}
+
+form {
+  margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="email"],
+input[type="password"],
+select {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background-color: #73ac31;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.popup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+
 </style>
