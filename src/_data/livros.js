@@ -9,7 +9,6 @@ export const livros = [
   },
   {
     id: 2,
-    class: 'violencia',
     class: 'fantasia',
     title: 'O Senhor dos Anéis - Box completo',
     author: 'J. R. R. Tolkien',
@@ -18,38 +17,33 @@ export const livros = [
   },
   {
     id: 3,
+    class: 'fantasia infantojuvenil',
     title: 'O Pequeno Príncipe',
-    class: 'fantasia',
-    class: 'infantojuvenil',
     author: 'Antoine de Saint-Exupéry',
     price: 13.0,
     img: 'https://m.media-amazon.com/images/I/41afCn3PQUL._SY344_BO1,204,203,200_QL70_ML2_.jpg'
   },
   {
     id: 4,
+    class: 'fantasia medieval infantojuvenil',
     title: 'Dom Quixote',
-    class: 'fantasia',
-    class: 'medieval',
-    class: 'infantojuvenil',
     author: 'Miguel de Cervantes',
     price: 39.9,
     img: 'https://m.media-amazon.com/images/I/513uHO8IDlL._SX359_BO1,204,203,200_.jpg'
   },
   {
     id: 5,
-    title: 'O Conde de Monte Cristo',
     class: 'violencia',
+    title: 'O Conde de Monte Cristo',
     author: 'Alexandre Dumas',
     price: 69.15,
     img: 'https://m.media-amazon.com/images/I/81ZswN9PVPL._AC_UL320_.jpg'
   },
   {
     id: 6,
+    class: 'violencia fantasia',
     title: 'O Hobbit',
-    class: 'violencia',
-    class: 'fantasia',
     author: 'J. R. R. Tolkien',
-    price: 37.4,
-    img: 'https://m.media-amazon.com/images/I/91M9xPIf10L._AC_UL320_.jpg'
-  }
-]
+    // ...
+  },
+];

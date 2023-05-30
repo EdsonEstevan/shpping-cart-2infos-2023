@@ -6,6 +6,8 @@ const carrinho = ref({
   itens: [],
   total: 0
 })
+const mostrarFiltros = ref(false)
+const valorTotal = ref(5000.0)
 
 const adicionarAoCarrinho = (livro) => {
   const index = carrinho.value.itens.findIndex((item) => item.id === livro.id)
@@ -40,8 +42,6 @@ const formatarPreco = (preco) => {
   return 'R$ ' + preco.toFixed(2).replace('.', ',')
 }
 
-const mostrarFiltros = ref(false)
-
 const alternarFiltros = () => {
   mostrarFiltros.value = !mostrarFiltros.value
 }
@@ -50,55 +50,59 @@ const categorias = ref({
   fantasia: false,
   violencia: false,
   infantojuvenil: false,
-  medieval: false,
+  medieval: false
 })
 
 const livrosFiltrados = computed(() => {
   return livros.filter((livro) => {
     if (
-      (categorias.value.fantasia && livro.class === "fantasia") ||
-      (categorias.value.violencia && livro.class === "violencia") ||
-      (categorias.value.infantojuvenil && livro.class === "infantojuvenil") ||
-      (categorias.value.medieval && livro.class === "medieval") 
+      (categorias.value.fantasia && livro.class === 'fantasia') ||
+      (categorias.value.violencia && livro.class === 'violencia') ||
+      (categorias.value.infantojuvenil && livro.class === 'infantojuvenil') ||
+      (categorias.value.medieval && livro.class === 'medieval')
     ) {
-      return true;
+      return true
     }
-    return false;
-  });
-});
+    return false
+  })
+})
 
-const exibirPopup = ref(false);
+const exibirPopup = ref(false)
 
-const respostaPopup = ref(null);
+const respostaPopup = ref(null)
 
 const comprarLivro = () => {
-  exibirPopup.value = true;
-};
+  exibirPopup.value = true
+}
 
 const finalizarCompra = () => {
   if (email.value && senha.value && metodoPagamento.value) {
-    exibirPopup.value = false;
+    abrirPopup()
   }
-};
+  valorTotal.value -= carrinho.value.total
+}
 
 const responderPopup = (resposta) => {
-  respostaPopup.value = resposta;
+  respostaPopup.value = resposta
   setTimeout(() => {
-    exibirPopup.value = false;
-    respostaPopup.value = null;
-  }, 100);
-};
+    exibirPopup.value = false
+    respostaPopup.value = null
+  }, 100)
+}
 
-const email = ref('');
-const senha = ref('');
-const metodoPagamento = ref('');
+const email = ref('')
+const senha = ref('')
+const metodoPagamento = ref('')
 
-
-
+const abrirPopup = () => {
+  exibirPopup.value = true
+  respostaPopup.value = 'Olá'
+}
 </script>
 
 <template>
   <main>
+    <div id="valor">{{ formatarPreco(valorTotal) }}</div>
     <div class="header-container">
       <div class="header-bar"></div>
       <h1 class="titulo-pagina">Minha Livraria</h1>
@@ -123,8 +127,8 @@ const metodoPagamento = ref('');
       </div>
     </div>
     <div class="container-geral">
-    <div class="listagem-livros">
-      <div class="card-livro" v-for="livro in livrosFiltrados" :key="livro.id">
+      <div class="listagem-livros">
+        <div class="card-livro" v-for="livro in livrosFiltrados" :key="livro.id">
           <div class="wrap-livro">
             <img :src="livro.img" alt="Capa do livro" class="capa-livro" />
           </div>
@@ -166,34 +170,50 @@ const metodoPagamento = ref('');
         <button @click="comprarLivro">Comprar</button>
       </div>
       <div v-if="exibirPopup" class="popup-container">
-    <div class="popup">
-  <h3>Finalizar Compra</h3>
-  <form>
-    <label for="email">Email:</label>
-    <input type="email" v-model="email" required>
+        <div class="popup">
+          <h3>Finalizar Compra</h3>
+          <form>
+            <label for="email">Email:</label>
+            <input type="email" v-model="email" required />
 
-    <label for="senha">Senha:</label>
-    <input type="password" v-model="senha" required>
+            <label for="senha">Senha:</label>
+            <input type="password" v-model="senha" required />
 
-    <label for="metodoPagamento">Método de Pagamento:</label>
-    <select v-model="metodoPagamento" required>
-      <option value="" disabled>Selecione o método de pagamento</option>
-      <option value="debito">Débito</option>
-      <option value="credito">Crédito</option>
-      <option value="pix">Pix</option>
-    </select>
-  </form>
-  <button @click="finalizarCompra" :disabled="!email || !senha || !metodoPagamento">
-  Finalizar Compra
-</button>
-</div>
-</div>
+            <label for="metodoPagamento">Método de Pagamento:</label>
+            <select v-model="metodoPagamento" required>
+              <option value="" disabled>Selecione o método de pagamento</option>
+              <option value="debito">Débito</option>
+              <option value="credito">Crédito</option>
+              <option value="pix">Pix</option>
+            </select>
+
+            <template v-if="metodoPagamento === 'debito' || metodoPagamento === 'credito'">
+              <label for="numeroCartao">Número do Cartão:</label>
+              <input type="text" v-model="numeroCartao" required />
+
+              <label for="validade">Validade:</label>
+              <input type="text" v-model="validade" required />
+
+              <label for="cvv">CVV:</label>
+              <input type="text" v-model="cvv" required />
+            </template>
+
+            <template v-else-if="metodoPagamento === 'pix'">
+              <label for="chavePix">Chave PIX:</label>
+              <input type="text" v-model="chavePix" required />
+            </template>
+          </form>
+          <div id="valor" style="position: fixed; top: 20px; right: 20px">R$ 5000</div>
+          <button @click="finalizarCompra" :disabled="!email || !senha || !metodoPagamento">
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
     </div>
   </main>
 </template>
 
 <style scoped>
-
 .filtrar-button {
   background-color: #73ac31;
   color: black;
@@ -227,7 +247,6 @@ const metodoPagamento = ref('');
   background-color: #73ac31;
   height: 100px;
   width: 100%;
-  
 }
 
 .titulo-pagina {
@@ -263,7 +282,7 @@ const metodoPagamento = ref('');
   width: 100%;
 }
 
-.detalhes-livro input[type="number"] {
+.detalhes-livro input[type='number'] {
   width: 50px;
   text-align: center;
   border: none;
@@ -364,7 +383,7 @@ button {
   }
 
   .listagem-livros {
-    grid-template-columns:1fr;
+    grid-template-columns: 1fr;
   }
 }
 
@@ -396,8 +415,8 @@ label {
   margin-bottom: 5px;
 }
 
-input[type="email"],
-input[type="password"],
+input[type='email'],
+input[type='password'],
 select {
   width: 100%;
   padding: 5px;
@@ -421,6 +440,4 @@ button {
   align-items: center;
   min-height: 100vh;
 }
-
-
 </style>
