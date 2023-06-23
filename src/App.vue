@@ -91,6 +91,8 @@ const responderPopup = (resposta) => {
   }, 100)
 }
 
+const cpf = ref('');
+const dataNascimento = ref('');
 const email = ref('')
 const senha = ref('')
 const metodoPagamento = ref('')
@@ -120,7 +122,8 @@ const abrirPopup = () => {
         <div class="filtro">
           <div class="filtro">
             <input type="checkbox" v-model="categorias.infantojuvenil" />
-            <label class="filtros">Infantojuvenil</label>
+            <label class="filtros">Infantojuvenconst cpf = ref('');
+const dataNascimento = ref('');il</label>
           </div>
           <div class="filtro">
             <input type="checkbox" v-model="categorias.medieval" />
@@ -151,7 +154,8 @@ const abrirPopup = () => {
                 <img :src="item.img" class="icon-capa-livro" />
               </div>
               <div class="detalhes-livro">
-                <div>
+                <div>const cpf = ref('');
+const dataNascimento = ref('');
                   <p>{{ item.title }}</p>
                   <p class="info-livro-preco">{{ formatarPreco(item.price) }}/un</p>
                 </div>
@@ -181,7 +185,11 @@ const abrirPopup = () => {
 
             <label for="senha">Senha:</label>
             <input type="password" v-model="senha" required />
+            <label for="cpf">CPF:</label>
+  <input type="text" v-model="cpf" required />
 
+  <label for="dataNascimento">Data de Nascimento:</label>
+  <input type="date" v-model="dataNascimento" required />
             <label for="metodoPagamento">Método de Pagamento:</label>
             <select v-model="metodoPagamento" required>
               <option value="" disabled>Selecione o método de pagamento</option>
@@ -219,7 +227,7 @@ const abrirPopup = () => {
 <style scoped>
 
 .filtrar-button {
-  background-color: #73ac31;
+  background-color: #2196F3;
   color: black;
   border: none;
   border-radius: 5px;
@@ -230,8 +238,8 @@ const abrirPopup = () => {
 
 .filtros-container {
   margin-top: 10px;
-  border: 1px solid #73ac31;
-  border-radius: 5px;
+  border: 0px solid #2196F3;
+  border-radius: 0px;
   padding: 10px;
 }
 
@@ -252,14 +260,14 @@ const abrirPopup = () => {
 }
 
 .header-bar {
-  background-color: #73ac31;
+  background-color: #2196F3;
   height: 100px;
-  width: 101%;
+  width: 100%;
 }
 
 .titulo-pagina {
   text-align: center;
-  color: #184a4a;
+  color: #1A237E;
   margin: 20px auto 0;
   font-size: 28px;
   position: absolute;
@@ -299,7 +307,6 @@ const abrirPopup = () => {
   margin-left: 10px;
 }
 
-
 .info-livro-preco {
   margin-left: auto;
 }
@@ -316,7 +323,7 @@ const abrirPopup = () => {
 }
 
 .carrinho {
-  background-color: #83eec5;
+  background-color: #BBDEFB;
   padding: 20px;
   border-radius: 10px;
 }
@@ -329,7 +336,7 @@ const abrirPopup = () => {
 
 .card-livro {
   padding: 10px;
-  background-color: #62d5b4;
+  background-color: #1A237E;
   border-radius: 10px;
   width: 100%;
   max-width: 347px;
@@ -359,17 +366,18 @@ const abrirPopup = () => {
   font-weight: bold;
   margin-bottom: 5px;
 }
+
 h1 {
-  color: #73ac31;
+  color: #2196F3;
 }
 
 h2 {
-  color: #73ac31;
+  color: #2196F3;
   margin-bottom: 10px;
 }
 
 button {
-  background-color: #73ac31;
+  background-color: #2196F3;
   color: white;
   border: none;
   border-radius: 5px;
@@ -378,13 +386,13 @@ button {
 }
 
 button:hover {
-  background-color: darkgreen;}
+  background-color: #1A237E;
+}
 
 @media screen and (max-width: 768px) {
   .container-geral {
     grid-template-columns: 1fr;
   }
-
   .listagem-livros {
     grid-template-columns: 1fr;
   }
@@ -394,7 +402,7 @@ button:hover {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #fff;
+  background-color: #F5F5F5;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -434,7 +442,6 @@ select {
   align-items: center;
   min-height: 100vh;
 }
-
 
 
 </style>
