@@ -79,6 +79,7 @@ const finalizarCompra = () => {
   if (email.value && senha.value && metodoPagamento.value) {
     abrirPopup()
   }
+  exibirPopup.value = false
   valorTotal.value -= carrinho.value.total
 }
 
@@ -102,10 +103,10 @@ const abrirPopup = () => {
 
 <template>
   <main>
-    <div id="valor">{{ formatarPreco(valorTotal) }}</div>
     <div class="header-container">
       <div class="header-bar"></div>
       <h1 class="titulo-pagina">Minha Livraria</h1>
+      <div id="valor" class="valor-total">{{ formatarPreco(valorTotal) }}</div>
       <button class="filtrar-button" @click="alternarFiltros">Filtrar</button>
       <div v-if="mostrarFiltros" class="filtros-container">
         <div class="filtro">
@@ -117,12 +118,14 @@ const abrirPopup = () => {
           <label class="filtros">Violência</label>
         </div>
         <div class="filtro">
-          <input type="checkbox" v-model="categorias.infantojuvenil" />
-          <label class="filtros">Infantojuvenil</label>
-        </div>
-        <div class="filtro">
-          <input type="checkbox" v-model="categorias.medieval" />
-          <label class="filtros">Medieval</label>
+          <div class="filtro">
+            <input type="checkbox" v-model="categorias.infantojuvenil" />
+            <label class="filtros">Infantojuvenil</label>
+          </div>
+          <div class="filtro">
+            <input type="checkbox" v-model="categorias.medieval" />
+            <label class="filtros">Medieval</label>
+          </div>
         </div>
       </div>
     </div>
@@ -184,7 +187,7 @@ const abrirPopup = () => {
               <option value="" disabled>Selecione o método de pagamento</option>
               <option value="debito">Débito</option>
               <option value="credito">Crédito</option>
-              <option value="pix">Pix</option>
+              <option value="pix">Site</option>
             </select>
 
             <template v-if="metodoPagamento === 'debito' || metodoPagamento === 'credito'">
@@ -199,7 +202,7 @@ const abrirPopup = () => {
             </template>
 
             <template v-else-if="metodoPagamento === 'pix'">
-              <label for="chavePix">Chave PIX:</label>
+              <label for="chavePix">Senha:</label>
               <input type="text" v-model="chavePix" required />
             </template>
           </form>
@@ -214,6 +217,7 @@ const abrirPopup = () => {
 </template>
 
 <style scoped>
+
 .filtrar-button {
   background-color: #73ac31;
   color: black;
@@ -240,13 +244,17 @@ const abrirPopup = () => {
 .filtros {
   color: black;
 }
+
 .header-container {
   position: relative;
+  margin-top: -8px;
+  margin-left: -8px;
 }
+
 .header-bar {
   background-color: #73ac31;
   height: 100px;
-  width: 100%;
+  width: 101%;
 }
 
 .titulo-pagina {
@@ -291,15 +299,6 @@ const abrirPopup = () => {
   margin-left: 10px;
 }
 
-.detalhes-livro button {
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 1.5rem;
-  color: black;
-  padding: 0;
-  margin: 0;
-}
 
 .info-livro-preco {
   margin-left: auto;
@@ -333,6 +332,8 @@ const abrirPopup = () => {
   background-color: #62d5b4;
   border-radius: 10px;
   width: 100%;
+  max-width: 347px;
+  max-height: 375px;
 }
 
 .wrap-livro {
@@ -358,7 +359,6 @@ const abrirPopup = () => {
   font-weight: bold;
   margin-bottom: 5px;
 }
-
 h1 {
   color: #73ac31;
 }
@@ -376,6 +376,9 @@ button {
   padding: 5px 10px;
   cursor: pointer;
 }
+
+button:hover {
+  background-color: darkgreen;}
 
 @media screen and (max-width: 768px) {
   .container-geral {
@@ -425,19 +428,13 @@ select {
   align-items: center;
 }
 
-button {
-  background-color: #73ac31;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
 .popup-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
 }
+
+
+
 </style>

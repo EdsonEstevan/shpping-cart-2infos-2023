@@ -17,7 +17,8 @@ export const livros = [
   },
   {
     id: 3,
-    class: 'fantasia infantojuvenil',
+    class: 'fantasia',
+    class: 'infantojuvenil',
     title: 'O Pequeno Príncipe',
     author: 'Antoine de Saint-Exupéry',
     price: 13.0,
@@ -25,7 +26,7 @@ export const livros = [
   },
   {
     id: 4,
-    class: 'fantasia medieval infantojuvenil',
+    class: 'medieval',
     title: 'Dom Quixote',
     author: 'Miguel de Cervantes',
     price: 39.9,
