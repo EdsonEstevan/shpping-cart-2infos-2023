@@ -122,8 +122,7 @@ const abrirPopup = () => {
         <div class="filtro">
           <div class="filtro">
             <input type="checkbox" v-model="categorias.infantojuvenil" />
-            <label class="filtros">Infantojuvenconst cpf = ref('');
-const dataNascimento = ref('');il</label>
+            <label class="filtros">Infantojuvenil</label>
           </div>
           <div class="filtro">
             <input type="checkbox" v-model="categorias.medieval" />
@@ -154,8 +153,7 @@ const dataNascimento = ref('');il</label>
                 <img :src="item.img" class="icon-capa-livro" />
               </div>
               <div class="detalhes-livro">
-                <div>const cpf = ref('');
-const dataNascimento = ref('');
+                <div>Senhor dos aneis
                   <p>{{ item.title }}</p>
                   <p class="info-livro-preco">{{ formatarPreco(item.price) }}/un</p>
                 </div>
@@ -215,7 +213,8 @@ const dataNascimento = ref('');
             </template>
           </form>
           <div id="valor" style="position: fixed; top: 20px; right: 20px">R$ 5000</div>
-          <button @click="finalizarCompra" :disabled="!email || !senha || !metodoPagamento">
+  <label for="dataNascimento">Data de Nascimento:</label>
+          <button @click="finalizarCompra" :disabled="!email || !senha || !metodoPagamento || !dataNascimento || !cpf">
             Finalizar Compra
           </button>
         </div>
@@ -337,6 +336,7 @@ const dataNascimento = ref('');
 .card-livro {
   padding: 10px;
   background-color: #1A237E;
+  border: #F5F5F5;
   border-radius: 10px;
   width: 100%;
   max-width: 347px;
