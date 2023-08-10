@@ -83,16 +83,8 @@ const finalizarCompra = () => {
   valorTotal.value -= carrinho.value.total
 }
 
-const responderPopup = (resposta) => {
-  respostaPopup.value = resposta
-  setTimeout(() => {
-    exibirPopup.value = false
-    respostaPopup.value = null
-  }, 100)
-}
-
-const cpf = ref('');
-const dataNascimento = ref('');
+const cpf = ref('')
+const dataNascimento = ref('')
 const email = ref('')
 const senha = ref('')
 const metodoPagamento = ref('')
@@ -153,7 +145,8 @@ const abrirPopup = () => {
                 <img :src="item.img" class="icon-capa-livro" />
               </div>
               <div class="detalhes-livro">
-                <div>Senhor dos aneis
+                <div>
+                  Senhor dos aneis
                   <p>{{ item.title }}</p>
                   <p class="info-livro-preco">{{ formatarPreco(item.price) }}/un</p>
                 </div>
@@ -184,10 +177,10 @@ const abrirPopup = () => {
             <label for="senha">Senha:</label>
             <input type="password" v-model="senha" required />
             <label for="cpf">CPF:</label>
-  <input type="text" v-model="cpf" required />
+            <input type="text" v-model="cpf" required />
 
-  <label for="dataNascimento">Data de Nascimento:</label>
-  <input type="date" v-model="dataNascimento" required />
+            <label for="dataNascimento">Data de Nascimento:</label>
+            <input type="date" v-model="dataNascimento" required />
             <label for="metodoPagamento">Método de Pagamento:</label>
             <select v-model="metodoPagamento" required>
               <option value="" disabled>Selecione o método de pagamento</option>
@@ -213,8 +206,11 @@ const abrirPopup = () => {
             </template>
           </form>
           <div id="valor" style="position: fixed; top: 20px; right: 20px">R$ 5000</div>
-  <label for="dataNascimento">Data de Nascimento:</label>
-          <button @click="finalizarCompra" :disabled="!email || !senha || !metodoPagamento || !dataNascimento || !cpf">
+          <label for="dataNascimento">Data de Nascimento:</label>
+          <button
+            @click="finalizarCompra"
+            :disabled="!email || !senha || !metodoPagamento || !dataNascimento || !cpf"
+          >
             Finalizar Compra
           </button>
         </div>
@@ -224,9 +220,8 @@ const abrirPopup = () => {
 </template>
 
 <style scoped>
-
 .filtrar-button {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: black;
   border: none;
   border-radius: 5px;
@@ -237,7 +232,7 @@ const abrirPopup = () => {
 
 .filtros-container {
   margin-top: 10px;
-  border: 0px solid #2196F3;
+  border: 0px solid #2196f3;
   border-radius: 0px;
   padding: 10px;
 }
@@ -259,14 +254,14 @@ const abrirPopup = () => {
 }
 
 .header-bar {
-  background-color: #2196F3;
+  background-color: #2196f3;
   height: 100px;
   width: 100%;
 }
 
 .titulo-pagina {
   text-align: center;
-  color: #1A237E;
+  color: #1a237e;
   margin: 20px auto 0;
   font-size: 28px;
   position: absolute;
@@ -322,7 +317,7 @@ const abrirPopup = () => {
 }
 
 .carrinho {
-  background-color: #BBDEFB;
+  background-color: #bbdefb;
   padding: 20px;
   border-radius: 10px;
 }
@@ -335,8 +330,8 @@ const abrirPopup = () => {
 
 .card-livro {
   padding: 10px;
-  background-color: #1A237E;
-  border: #F5F5F5;
+  background-color: #1a237e;
+  border: #f5f5f5;
   border-radius: 10px;
   width: 100%;
   max-width: 347px;
@@ -368,16 +363,16 @@ const abrirPopup = () => {
 }
 
 h1 {
-  color: #2196F3;
+  color: #2196f3;
 }
 
 h2 {
-  color: #2196F3;
+  color: #2196f3;
   margin-bottom: 10px;
 }
 
 button {
-  background-color: #2196F3;
+  background-color: #2196f3;
   color: white;
   border: none;
   border-radius: 5px;
@@ -386,7 +381,7 @@ button {
 }
 
 button:hover {
-  background-color: #1A237E;
+  background-color: #1a237e;
 }
 
 @media screen and (max-width: 768px) {
@@ -402,7 +397,7 @@ button:hover {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   padding: 20px;
   border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -442,6 +437,4 @@ select {
   align-items: center;
   min-height: 100vh;
 }
-
-
 </style>
